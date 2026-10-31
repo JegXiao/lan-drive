@@ -1,0 +1,561 @@
+/* ================================================================
+   1. 全局基础设置
+   ================================================================ */
+/* 所有元素：盒模型重置 */
+* {
+    /* 盒模型：高度宽度包含边距 */
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* 网页整体：平滑滚动 */
+html {
+    /* 丝滑滚动效果 */
+    scroll-behavior: smooth;
+}
+
+/* 页面主体：全局字体、背景及防选中 */
+body {
+    /* 网页主字体库 */
+    font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    /* 背景：浅灰蓝 */
+    background-color: #f4f7f9;
+    /* 文字：深灰 */
+    color: #2c3e50;
+    /* 行距：阅读间隙 */
+    line-height: 1.6;
+    /* 页面内边距 */
+    padding: 20px;
+    /* 禁止全站选中文字 */
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* ================================================================
+   2. 布局容器
+   ================================================================ */
+
+/* 主容器：居中卡片样式 */
+.container {
+    /* 限制最宽 1000px */
+    max-width: 1000px;
+    /* 水平居中 */
+    margin: 40px auto;
+    /* 背景：纯白 */
+    background: #ffffff;
+    /* 内部留白 */
+    padding: 40px;
+    /* 容器大圆角 */
+    border-radius: 20px;
+    /* 底部柔和阴影 */
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+    /* 必须设置相对定位，以供拖拽遮罩绝对定位参考 */
+    position: relative;
+}
+
+/* 标题容器：实现标题左对齐、按钮右对齐的弹性布局 */
+.header-wrapper {
+    /* 开启弹性布局 */
+    display: flex;
+    /* 左右两端对齐：一个在最左，一个在最右 */
+    justify-content: space-between;
+    /* 垂直居中 */
+    align-items: center;
+    /* 统一控制与下方内容的间距 */
+    margin-bottom: 30px;
+}
+
+/* 主标题：蓝色对齐布局 */
+h1 {
+    /* 标题加粗 */
+    font-weight: 700;
+    /* 标题字号 */
+    font-size: 2rem;
+    /* 颜色：科技蓝 */
+    color: #0075ff;
+    /* 清除默认间距，由父容器统一控制 */
+    margin: 0;
+    /* 内部图标与文字水平对齐 */
+    display: flex;
+    align-items: center;
+    /* 图文间距 */
+    gap: 12px;
+}
+
+/* ================================================================
+   3. 上传区域布局
+   ================================================================ */
+
+/* 上传外框：横向弹性布局 */
+.upload-section {
+    /* 内部元素横向排队 */
+    display: flex;
+    /* 垂直方向居中对齐 */
+    align-items: center;
+    /* 自动换行适应手机 */
+    flex-wrap: wrap;
+    /* 按钮间距 */
+    gap: 15px;
+    /* 区域内边距 */
+    padding: 20px;
+    /* 背景：浅色底块 */
+    background: #f8fafc;
+    /* 区域圆角 */
+    border-radius: 12px;
+    /* 下方间距 */
+    margin-bottom: 30px;
+}
+
+/* 文件名提示：溢出省略号处理 */
+#fileNameDisplay {
+    /* 文字颜色：灰色 */
+    color: #7f8c8d;
+    /* 文字字号 */
+    font-size: 0.9rem;
+    /* 最宽 200px */
+    max-width: 200px;
+    /* 隐藏溢出名字 */
+    overflow: hidden;
+    /* 超长显示省略号 */
+    text-overflow: ellipsis;
+    /* 禁止换行 */
+    white-space: nowrap;
+}
+
+/* ================================================================
+   4. 按钮组件系统
+   ================================================================ */
+
+/* 按钮通用：高度及交互基础 */
+button, .btn-custom {
+    /* 统一按钮高度 */
+    height: 42px;
+    /* 左右内边距 */
+    padding: 0 20px;
+    /* 去掉边框 */
+    border: none;
+    /* 按钮小圆角 */
+    border-radius: 10px;
+    /* 按钮字号与粗细 */
+    font-size: 14px;
+    font-weight: 600;
+    /* 鼠标手型状态 */
+    cursor: pointer;
+    /* 内部文字绝对居中 */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* 交互过渡动画 */
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    /* 禁止文字换行 */
+    white-space: nowrap;
+    /* 核心：去掉移动端点击时的蓝色高亮框 */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* 所有点击行为：缩小反馈 */
+/* 按下按钮时缩小 4% */
+button:active, .btn-custom:active, .link:active {
+    transform: scale(0.96);
+}
+
+/* 选择文件标签：青色渐变 */
+.btn-custom {
+    /* 背景：青蓝渐变 */
+    background: linear-gradient(135deg, #6dd5ed 0%, #2193b0 100%);
+    /* 文字：纯白 */
+    color: white;
+    /* 蓝色系阴影 */
+    box-shadow: 0 4px 10px rgba(33, 147, 176, 0.2);
+}
+/* 选择文件标签：悬停提亮 */
+.btn-custom:hover {
+    /* 悬停提亮 */
+    filter: brightness(1.05);
+    /* 阴影加深 */
+    box-shadow: 0 6px 15px rgba(108, 212, 235, 0.4);
+    /* 向上位移 1px */
+    transform: translateY(-1px);
+}
+
+/* 确认上传按钮：蓝色渐变 */
+.btn-primary {
+    display: none; /* 默认不显示 */
+    /* 背景：紫蓝渐变 */
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    /* 文字：纯白 */
+    color: white;
+    /* 蓝色系阴影 */
+    box-shadow: 0 4px 10px rgba(37, 117, 252, 0.2);
+}
+/* 当按钮拥有 show 类时才显示（使用 flex 保持居中特性） */
+.btn-primary.show {
+    display: inline-flex;
+}
+/* 确认上传按钮：悬停提亮 */
+.btn-primary:hover {
+    /* 悬停反馈同上 */
+    filter: brightness(1.05);
+    box-shadow: 0 6px 15px rgba(37, 116, 250, 0.4);
+    transform: translateY(-1px);
+}
+
+/* ================================================================
+   5. 数据表格美化
+   ================================================================ */
+
+/* 表格容器：横向滚动支持 */
+.file-list {
+    /* 上方间距 */
+    margin-top: 10px;
+    /* 横向超出时滚动 */
+    overflow-x: auto;
+}
+
+/* 表格主体：分离模式布局 */
+table {
+    /* 宽度撑满 */
+    width: 100%;
+    /* 允许单元格分离 */
+    border-collapse: separate;
+    /* 间距设为 0 */
+    border-spacing: 0;
+}
+
+/* 表头：文字格式及底线 */
+th {
+    /* 表头背景：灰 */
+    background-color: #eaeaea;
+    /* 文字颜色：灰 */
+    color: #7f8c8d;
+    /* 字号与粗细 */
+    font-size: 0.75rem;
+    font-weight: 700;
+    /* 强制大写 */
+    text-transform: uppercase;
+    /* 字母间距 */
+    letter-spacing: 0.05em;
+    /* 表头内边距 */
+    padding: 16px;
+    /* 靠左对齐 */
+    text-align: left;
+    /* 底部边框线 */
+    border-bottom: 2px solid #f1f5f9;
+}
+
+/* 单元格：内边距及平滑变色 */
+td {
+    /* 单元格内边距 */
+    padding: 16px;
+    /* 单元格细边框线 */
+    border-bottom: 1px solid #f1f5f9;
+    /* 文件名字号 */
+    font-size: 0.95rem;
+    /* 背景色平滑过渡 */
+    transition: background 0.2s;
+}
+
+/* 单元格第一列：开启文本选中 */
+td:first-child {
+    /* 开启第一列文本选中 */
+    user-select: text;
+    -webkit-user-select: text;
+    /* 指针变为文本光标 */
+    cursor: text;
+}
+
+/* 数据行：悬停高亮 */
+tr:hover td {
+    /* 悬停行背景：浅天蓝 */
+    background-color: #b1e5f1;
+}
+
+/* 下载链接：小按钮样式 */
+.link {
+    /* 链接文字颜色 */
+    color: #0075ff;
+    /* 去掉下划线 */
+    text-decoration: none;
+    /* 文字加粗 */
+    font-weight: 600;
+    /* 链接内边距 */
+    padding: 6px 12px;
+    /* 链接圆角 */
+    border-radius: 6px;
+    /* 浅蓝色背景块 */
+    background: rgba(34, 140, 236, 0.1);
+    /* 强制文字不换行，保证按钮始终是一个整体 */
+    white-space: nowrap;
+    /* 改为行内弹性盒，确保内边距和宽高计算更稳定 */
+    display: inline-flex;
+    align-items: center;
+}
+/* 下载链接：悬停变色 */
+.link:hover {
+    /* 悬停变实心蓝按钮 */
+    background: #0075ff;
+    color: white;
+}
+
+/* 文件上传状态提示：文字间距与防抖动 */
+#status {
+    /* 提示词字号 */
+    font-size: 0.9rem;
+    /* 文字粗细 */
+    font-weight: 500;
+    /* 顶部外边距 */
+    margin-top: 10px;
+    /* 最小高度防止抖动 */
+    min-height: 1.5em;
+    /* 颜色：深灰 */
+    color: #2c3e50;
+}
+
+/* ================================================================
+   6. 主题按钮
+   ================================================================ */
+
+/* 切换按钮基础：控制夜间模式切换按钮的外观 */
+.btn-theme {
+    /* 按钮背景：极浅的灰色圆圈 */
+    background: rgba(0, 0, 0, 0.05);
+    /* 去掉默认边框 */
+    border: none;
+    /* 按钮宽度 */
+    width: 40px;
+    /* 按钮高度 */
+    height: 40px;
+    /* 圆形边框 */
+    border-radius: 50%;
+    /* 鼠标手型状态 */
+    cursor: pointer;
+    /* 图标大小 */
+    font-size: 1.2rem;
+    /* 交互过渡动画 */
+    transition: all 0.3s;
+    /* 防止按钮在标题过长时被挤压变形 */
+    flex-shrink: 0;
+}
+/* 切换按钮悬停：控制鼠标移上去时的动态反馈 */
+.btn-theme:hover {
+    /* 悬停时背景加深 */
+    background: rgba(0, 0, 0, 0.1);
+    /* 悬停时轻微旋转，增加趣味性 */
+    transform: rotate(15deg);
+}
+
+/* ================================================================
+   7. 拖拽交互效果
+   ================================================================ */
+
+/* 拖拽遮罩容器：文件拖入时的提示层 */
+#dropZoneOverlay {
+    /* 默认状态下隐藏 */
+    display: none;
+    /* 绝对定位，覆盖整个父级容器 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* 浅蓝色透明背景 */
+    background: rgba(0, 117, 255, 0.1);
+    /* 科技蓝虚线边框 */
+    border: 3px dashed #0075ff;
+    /* 与父容器一致的圆角 */
+    border-radius: 20px;
+    /* 层级置顶 */
+    z-index: 100;
+    /* 确保不阻碍鼠标事件触发拖放逻辑 */
+    pointer-events: none;
+    /* 内部内容居中展示 */
+    align-items: center;
+    justify-content: center;
+    /* 背景轻微模糊效果 */
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+
+/* 激活状态：当 container 带有 drag-over 类时显示 */
+.container.drag-over #dropZoneOverlay {
+    display: flex;
+}
+
+/* 提示内容布局：图标与文字对齐 */
+.drop-zone-content {
+    text-align: center;
+    /* 主色：科技蓝 */
+    color: #0075ff;
+}
+
+/* 拖拽提示图标：放大展示 */
+.drop-icon {
+    font-size: 3.5rem;
+    display: block;
+    margin-bottom: 12px;
+}
+
+/* 拖拽提示文字：加粗突出 */
+.drop-zone-content p {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* ================================================================
+   7.5 文件来源信息布局 (公共结构)
+   ================================================================ */
+
+/* 文件名下方的小号字容器 */
+.file-source {
+    display: block;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    color: #474747; /* 默认灰色 */
+    line-height: 1.2;
+}
+
+/* 用户昵称样式：基础斜体 */
+.nickname-text {
+    font-style: italic;
+    color: #3695ff; /* 初始蓝色 */
+    margin-right: 4px;
+}
+
+/* 管理员特有文字样式：金黄色基础 */
+.admin-text {
+    font-style: italic;
+    color: #ffa000;
+    font-weight: bold;
+}
+
+/* IP 地址样式 */
+.ip-text {
+    font-family: monospace;
+    opacity: 0.9;
+}
+
+/* ================================================================
+   8. 暗色主题颜色覆盖 (DARK MODE)
+   ================================================================ */
+
+/* --- 1. 全局基础设置覆盖 --- */
+/* 页面主体：切换为深色背景与浅色文字 */
+body.dark-mode {
+    background-color: #12141d;
+    color: #e2e8f0;
+}
+
+/* --- 2. 布局容器覆盖 --- */
+/* 主容器：暗色背景、深色边框与更重的阴影 */
+body.dark-mode .container {
+    background: #1e222d;
+    border: 1px solid #2d3343;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+/* 主标题：暗色下的亮色方案 */
+body.dark-mode h1 {
+    color: #3b82f6;
+}
+
+/* --- 3. 上传区域布局覆盖 --- */
+/* 上传外框：深色对比底块 */
+body.dark-mode .upload-section {
+    background: #262c3a;
+}
+
+/* 文件名提示：暗色次要文字 */
+body.dark-mode #fileNameDisplay {
+    color: #94a3b8;
+}
+
+/* --- 4. 按钮组件系统覆盖 --- */
+/* 选择文件标签：暗色下的渐变方案 */
+body.dark-mode .btn-custom {
+    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* 确认上传按钮：暗色下的渐变方案 */
+body.dark-mode .btn-primary {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* --- 5. 数据表格美化覆盖 --- */
+/* 表头：深色表头与弱化边框线 */
+body.dark-mode th {
+    background-color: #262c3a;
+    color: #94a3b8;
+    border-bottom: 2px solid #334155;
+}
+
+/* 单元格：暗色线条与文字色 */
+body.dark-mode td {
+    border-bottom: 1px solid #334155;
+    color: #cbd5e1;
+}
+
+/* 数据行：暗色高亮色 */
+body.dark-mode tr:hover td {
+    background-color: #2d3343;
+}
+
+/* 下载链接：暗色幽灵按钮 */
+body.dark-mode .link {
+    color: #3b82f6;
+    background: rgba(59, 130, 246, 0.15);
+}
+/* 下载链接：悬停反馈 */
+body.dark-mode .link:hover {
+    background: #3b82f6;
+    color: #ffffff;
+}
+
+/* 状态提示：暗色反馈文字 */
+body.dark-mode #status {
+    color: #3b82f6;
+}
+
+/* --- 6. 主题按钮覆盖 --- */
+/* 切换按钮：暗色下的圆形背景反馈 */
+body.dark-mode .btn-theme {
+    background: rgba(255, 255, 255, 0.1);
+    color: #facc15; /* 月亮图标显示为亮金色 */
+}
+/* 切换按钮：悬停提亮 */
+body.dark-mode .btn-theme:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* --- 7. 拖拽交互效果覆盖 --- */
+/* 拖拽遮罩：暗色下的深蓝半透明遮罩 */
+body.dark-mode #dropZoneOverlay {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: #3b82f6;
+}
+
+/* 拖拽提示：暗色下的亮蓝色文字 */
+body.dark-mode .drop-zone-content {
+    color: #3b82f6;
+}
+
+/* --- 8. 文件来源信息覆盖 --- */
+/* 暗色模式下的来源文字 */
+body.dark-mode .file-source {
+    color: #8c979e;
+}
+
+/* 暗色模式下的昵称颜色 */
+body.dark-mode .nickname-text {
+    color: #5394ff;
+}
+
+/* 暗色模式下的管理员文字 */
+body.dark-mode .admin-text {
+    color: #facc15;
+    /*text-shadow: 0 0 8px rgba(250, 204, 21, 0.4);*/
+}

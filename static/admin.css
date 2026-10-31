@@ -1,0 +1,216 @@
+/* ================================================================
+   1. 全局基础设置：本区域控制管理员模式下的黑金主题背景
+   ================================================================ */
+
+/* 页面主体：径向渐变深空背景 */
+body.mode-admin {
+    background-color: #0f111a;
+    /* 从中心向外扩散的深蓝黑渐变 */
+    background-image: radial-gradient(circle at 50% 50%, #1a1d2e 0%, #0f111a 100%);
+    color: #ffffff;
+}
+
+/* ================================================================
+   2. 布局容器：本区域控制中心深色卡片的描边与阴影
+   ================================================================ */
+
+/* 主容器：深色金属质感边框 */
+body.mode-admin .container {
+    background: #161925;
+    border: 1px solid #2d324a;
+    /* 强化的深色投影 */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+/* 主标题：金色流光渐变文字 */
+body.mode-admin h1 {
+    /* 黄金到亮橙的线性渐变 */
+    background: linear-gradient(to right, #ffca28, #ffa000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ================================================================
+   3. 上传区域布局：本区域控制管理员模式下操作台的底色
+   ================================================================ */
+
+/* 上传外框：深色操作台背景 */
+body.mode-admin .upload-section {
+    background: #1c2030;
+    border: 1px solid #333952;
+}
+
+/* 文件名提示：强制亮金发光 */
+body.mode-admin #fileNameDisplay {
+    color: #fd9f00 !important;
+    text-shadow: 0 0 8px rgba(248, 186, 0, 0.5);
+}
+
+/* ================================================================
+   4. 按钮组件系统：本区域控制管理员按钮的深色渐变与发光动效
+   ================================================================ */
+
+/* 选择文件标签：深灰工业风渐变 */
+body.mode-admin .btn-custom {
+    background: linear-gradient(135deg, #444444 0%, #222222 100%);
+    border: 1px solid #444;
+    color: #eeeeee;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+/* 选择文件标签：悬停提亮反馈 */
+body.mode-admin .btn-custom:hover {
+    filter: brightness(1.2);
+    box-shadow: 0 6px 15px rgba(255, 255, 255, 0.1);
+}
+
+/* 确认上传按钮：蓝紫魅影渐变 */
+body.mode-admin .btn-primary {
+    /* 深蓝到暗紫的神秘感渐变 */
+    background: linear-gradient(135deg, #222f91 0%, #34094a 100%);
+    color: white;
+    box-shadow: 0 4px 10px rgba(33, 68, 124, 0.3);
+}
+/* 确认上传按钮：悬停提亮反馈 */
+body.mode-admin .btn-primary:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 6px 15px rgba(19, 42, 80, 0.5);
+}
+
+/* ================================================================
+   5. 数据表格美化：本区域控制表格的黑金配色与高亮效果
+   ================================================================ */
+
+/* 表头：金色文字与明亮下划线 */
+body.mode-admin th {
+    background-color: #1c2030;
+    color: #ffca28;
+    border-bottom: 2px solid #ffca28;
+}
+
+/* 单元格：深蓝色底线与亮灰文字 */
+body.mode-admin td {
+    border-bottom: 1px solid #2d324a;
+    color: #e0e0e0;
+}
+
+/* 数据行：悬停时的深蓝荧光色 */
+body.mode-admin tr:hover td {
+    background-color: #003c6a !important;
+    color: #00d0ff;
+}
+
+/* 下载链接：金色幽灵按钮 */
+body.mode-admin .link {
+    background: rgb(66, 66, 66);
+    color: #ffca28;
+    border: 1px solid #7e5a00 !important;
+}
+/* 下载链接：悬停变色 */
+body.mode-admin .link:hover {
+    /* 悬停变实心蓝按钮 */
+    background: #fdc928;
+    color: #000000;
+}
+
+/* 文件上传状态提示：金色警示文字 */
+body.mode-admin #status {
+    color: #ffca28;
+}
+
+/* ================================================================
+   6. 拖拽交互效果覆盖：控制管理员模式下的黑金拖拽反馈
+   ================================================================ */
+
+/* 拖拽遮罩容器：管理员模式下的金色半透明层 */
+body.mode-admin #dropZoneOverlay {
+    /* 深暗背景配合金色调 */
+    background: rgba(255, 202, 40, 0.1);
+    /* 金色虚线描边 */
+    border: 3px dashed #ffca28;
+    /* 强化暗色背景下的毛玻璃效果 */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* 拖拽提示内容：管理员专有的亮金色文字 */
+body.mode-admin .drop-zone-content {
+    /* 亮金色文字 */
+    color: #ffca28;
+    /* 文字发光效果 */
+    text-shadow: 0 0 15px rgba(255, 202, 40, 0.4);
+}
+
+/* ================================================================
+   7.5 文件来源信息覆盖：控制管理员模式下的文字颜色
+   ================================================================ */
+
+/* 管理员模式下的来源次要文字 */
+body.mode-admin .file-source {
+    color: #a0aec0;
+}
+
+/* 管理员模式下的普通用户昵称颜色 */
+body.mode-admin .nickname-text {
+    color: #00d0ff; /* 亮蓝色，在黑底上更清晰 */
+}
+
+/* 管理员模式下的“管理员”三个字：强化金光效果 */
+body.mode-admin .admin-text {
+    color: #ffca28;
+    /*text-shadow: 0 0 10px rgba(255, 202, 40, 0.6);*/
+}
+
+/* 管理员模式下的 IP 文字 */
+body.mode-admin .ip-text {
+    color: #cbd5e1;
+}
+
+/* ================================================================
+   8. ADMIN 特有元素... (原有的代码顺延)
+   ================================================================ */
+
+/* 管理员底部面板：独立容器 */
+.admin-panel {
+    background: #1c2030;
+    border-radius: 12px;
+    border: 1px solid #333952;
+    padding: 25px;
+    margin-top: 40px;
+}
+
+/* 访客项记录：带金色边框的深色块 */
+.visitor-item {
+    background: #23283d;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-left: 4px solid #ffca28;
+}
+/* 访客项记录：悬停动态推移 */
+.visitor-item:hover {
+    transform: translateX(5px);
+    background: #2a304a;
+}
+
+/* 删除按钮 危险操作按钮：红橙烈焰渐变 */
+.btn-danger {
+    background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+    color: white;
+}
+/*删除按钮悬停*/
+.btn-danger:hover {
+    background: linear-gradient(135deg, #ff0000 0%, #ff4b2b 100%);
+    color: #686868;
+}
+
+/* 次要操作按钮：金色描边风格 */
+.btn-secondary {
+    background: transparent;
+    border: 1px solid #ffca28 !important;
+    color: #ffca28;
+}
+/* 次要操作按钮：悬停反色效果 */
+.btn-secondary:hover {
+    background: #ffca28;
+    color: #000;
+}

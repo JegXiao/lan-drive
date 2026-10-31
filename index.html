@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <title>
+    {% if is_admin %}
+        💎网盘管理界面
+    {% else %}
+        📁 JEGPAN 局域网网盘
+    {% endif %}
+    </title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+    {% if is_admin %}
+    <link rel="stylesheet" href="/static/admin.css">
+    {% endif %}
+</head>
+
+<body class="{% if is_admin %}mode-admin{% endif %}">
+    <div class="container">
+        <div class="header-wrapper">
+            <h1>📁 JEGPAN 网盘 {% if is_admin %}<small>(管理模式)</small>{% endif %}</h1>
+
+            <div class="top-controls" style="display: flex; gap: 10px; align-items: center;">
+                {% if not is_admin %}
+                <button id="nicknameBtn" class="btn-secondary" onclick="changeNickname()">修改昵称</button>
+
+                <button id="themeToggle" class="btn-theme" title="切换深色/浅色模式">
+                    <span class="icon-sun">☀️</span>
+                    <span class="icon-moon" style="display: none;">🌙</span>
+                </button>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="upload-section">
+            <input type="file" id="fileInput" style="display: none;">
+            <label for="fileInput" class="btn-custom">✨ 选择文件</label>
+
+            <span id="fileNameDisplay" style="color: #888; font-size: 0.9em;">未选择文件</span>
+
+            <button onclick="uploadFile()" class="btn-primary">确认上传</button>
+
+            <div id="status" style="margin-top: 10px; font-size: 0.85em; font-weight: 500; min-height: 1.2em;"></div>
+        </div>
+
+        <div class="file-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th>文件名</th>
+                        <th>大小</th>
+                        <th>操作</th>
+                        {% if is_admin %}<th class="admin-only">管理</th>{% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for file in files %}
+                    <tr>
+                        <td>
+                            <div class="file-name" style="font-weight: 600;">{{ file.name }}</div>
+                            <div class="file-source">
+                                来自
+                                {% if file.is_admin %}
+                                    <span class="admin-text">管理员</span>
+                                {% else %}
+                                    {% if file.nickname %}
+                                        <span class="nickname-text">{{ file.nickname }}</span>
+                                    {% endif %}
+                                    <span class="ip-text">[IP: {{ file.ip }}]</span>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>{{ file.size }}</td>
+                        <td><a href="/download/{{ file.name }}" class="link">下载</a></td>
+                        {% if is_admin %}
+                        <td class="admin-only">
+                            <button onclick="deleteFile('{{ file.name }}')" class="btn-danger">删除</button>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if is_admin %}
+        <div class="admin-panel">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3 style="margin: 0;">📊 系统管理控制台</h3>
+                <button onclick="openLocalFolder()" class="btn-secondary">📂 打开本地目录</button>
+            </div>
+
+            <div style="display: flex; gap: 30px; margin-bottom: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <div style="display: flex; flex-direction: column;">
+                    <span style="font-size: 0.8em; color: #888; margin-bottom: 4px;">当前在线</span>
+                    <span style="font-size: 1.2em; color: #ffca28; font-weight: bold;">
+                        <span id="online-count">{{ visitors|length }}</span> 人
+                    </span>
+                </div>
+                <div style="display: flex; flex-direction: column; border-left: 1px solid #333; padding-left: 30px;">
+                    <span style="font-size: 0.8em; color: #888; margin-bottom: 4px;">网盘占用</span>
+                    <span style="font-size: 1.2em; color: #ffca28; font-weight: bold;">
+                        <span id="storage-usage">{{ total_usage }}</span>
+                    </span>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 10px; font-size: 0.9em; font-weight: bold; color: #aaa;">📍 实时访客轨迹</div>
+            <div class="visitor-list" id="visitor-display">
+                {% for ip, info in visitors.items() %}
+                <div class="visitor-item">
+                    <strong>📍 {{ ip }}</strong> <br>
+                    <span style="color: #ffca28; font-size: 0.9em;">{{ info.device }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div id="dropZoneOverlay" class="drop-zone-overlay">
+            <div class="drop-zone-content">
+                <span class="drop-icon">📥</span>
+                <p>松手以选择此文件</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+    {% if is_admin %}
+    <script src="/static/admin.js"></script>
+    {% endif %}
+</body>
+</html>
